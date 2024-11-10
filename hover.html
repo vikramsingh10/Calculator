@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .parent {
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.child {
+    background-color: lightblue;
+    padding: 10px;
+    transition: transform 0.5s ease;
+}
+
+.parent:hover .child {
+    transform: scale(1.1);
+}
+
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child">Hover over the parent area!</div>
+    </div>
+    
+</body>
+</html>
