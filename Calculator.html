@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Calculator</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #3b3f58;
+        font-family: "Arial", sans-serif;
+      }
+      .calculator {
+        width: 320px;
+        background-color: #2e3245;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        border: 2px solid transparent;
+      }
+
+      .display {
+        width: 320px;
+        background-color: #1c1e2b;
+        color: #ffffff;
+        font-size: 2rem;
+        border-radius: 8px;
+        padding: 25px;
+        text-align: right;
+        margin-bottom: 15px;
+        border: 2px solid transparent;
+      }
+      .calculator:hover,
+      .display:hover {
+        border-color: rgb(52, 78, 137); /* Change border color on hover */
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+      button {
+        padding: 10px 15px 10px 15px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #2e3245;
+        background-color: #e0dcd3;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #c8c6bd;
+      }
+      .operator {
+        background-color: #8491b1;
+        color: #ffffff;
+      }
+      .operator:hover {
+        background-color: #6e7a91;
+      }
+      .reset-button {
+        grid-column: span 2;
+        background-color: #5661a3;
+        color: #ffffff;
+      }
+      .reset-button:hover {
+        background-color: #3f4a75;
+      }
+      .equal-button {
+        grid-column: span 2;
+        background-color: #d14f4f;
+        color: #ffffff;
+      }
+      .equal-button:hover {
+        background-color: #a73a3a;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display" class="display">0</div>
+    <div class="calculator">
+      <div class="buttons">
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button class="operator" onclick="deleteLast()">DEL</button>
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button class="operator" onclick="appendValue('+')">+</button>
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button class="operator" onclick="appendValue('-')">-</button>
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="appendValue('0')">0</button>
+        <button class="operator" onclick="appendValue('/')">/</button>
+        <button class="operator" onclick="appendValue('*')">x</button>
+        <button class="reset-button" onclick="resetDisplay()">RESET</button>
+        <button class="equal-button" onclick="calculateResult()">=</button>
+      </div>
+    </div>
+
+    <script>
+      function appendValue(value) {
+        const display = document.getElementById("display");
+        if (display.innerText === "0" && value !== ".") {
+          display.innerText = value;
+        } else {
+          display.innerText += value;
+        }
+      }
+
+      function deleteLast() {
+        const display = document.getElementById("display");
+        if (display.innerText.length > 1) {
+          display.innerText = display.innerText.slice(0, -1);
+        } else {
+          display.innerText = "0";
+        }
+      }
+
+      function resetDisplay() {
+        document.getElementById("display").innerText = "0";
+      }
+
+      function calculateResult() {
+        const display = document.getElementById("display");
+        try {
+          if (/[-+*/.]$/.test(display.innerText)) {
+            alert("Invalid expression, check your input.");
+            return;
+          }
+          let result = eval(display.innerText.replace(/x/g, "*"));
+          display.innerText = Number.isInteger(result)
+            ? result
+            : result.toFixed(2);
+        } catch (error) {
+          alert("Error in calculation");
+        }
+      }
+    </script>
+  </body>
+</html>
